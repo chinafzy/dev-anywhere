@@ -1,0 +1,13 @@
+tools:
+  anywhere:
+    jsch:
+      enable: true
+      check-interval: 100S
+      identify-file: ~/.ssh/id_rsa
+    sessions:
+      - name: remote-server1
+        session-model:
+          host: 43.143.168.105
+          port: 22
+          user: root
+#        pattern: 11.*

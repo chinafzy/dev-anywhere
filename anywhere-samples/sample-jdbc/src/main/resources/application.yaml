@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    active: @env.type@,@env.anywhere@
+
+#  datasource:
+#    url: jdbc:mysql://10.0.24.2:3306/anywhere?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=Asia/Shanghai
+#    username: anywhere
+#    password: anywhere19781978
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/whmc-80?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=Asia/Shanghai
+    username: whmc
+    password: GB8e6ADKKp4jRBid
+
+spring.mvc.pathmatch.matching-strategy: ANT_PATH_MATCHER
+
+server:
+  port: 8080
+  servlet:
+    context-path: /sample-jdbc
+
+
+#mybatis plus 设置
+mybatis-plus:
+  mybatis-plus:
+    configuration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+  mapper-locations:
+    - classpath*:com/cowd/cowdbi/modules/**/mapper/xml/*Mapper.xml
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
+      id-type: uuid
+      # 默认数据库表下划线命名
+      table-underline: true
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 返回类型为Map,显示null对应的字段
+    call-setters-on-nulls: true
+    #开启sql日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

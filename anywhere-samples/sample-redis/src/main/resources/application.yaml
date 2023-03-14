@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: @env.type@,@env.anywhere@
+
+  redis:
+    #    url: redis://10.0.24.2:6379
+    host: 10.0.24.2
+    port: 6379
+    connect-timeout: 10s
+    timeout: 10s
+#    redisson:
+#      file: classpath:redisson.yaml
