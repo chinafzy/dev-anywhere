@@ -17,5 +17,6 @@
         <module>anywhere-starter-redis</module>
         <module>anywhere-starter-jdbc</module>
         <module>anywhere-samples</module>
+        <module>anywhere-starter-all</module>
     </modules>
 </project>

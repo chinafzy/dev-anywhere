@@ -7,25 +7,26 @@ import me.in1978.tools.anywhere.tr.AuthException;
 import me.in1978.tools.anywhere.tr.SocketException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
-@Component
 @Slf4j
+@Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties({AnywhereConf.class, DataSourceProperties.class})
+@ConditionalOnClass(DataSourceProperties.class)
+@EnableConfigurationProperties({AnywhereConf.class})
 public class AnywhereDataSourceSetup implements BeanPostProcessor, InitializingBean, Ordered {
     final AnywhereConf conf;
     final AnywhereEngine engine;
-    @Resource
-    ApplicationContext ctx;
+    final ApplicationContext ctx;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -33,7 +34,7 @@ public class AnywhereDataSourceSetup implements BeanPostProcessor, InitializingB
             String name = entry.getKey();
             DataSourceProperties dsp = entry.getValue();
 
-            log.info("Enhance datasource {}", name);
+            log.info("{}: Enhance datasource {}", getName(), name);
             enhanceJdbc(dsp);
         }
     }
@@ -41,15 +42,19 @@ public class AnywhereDataSourceSetup implements BeanPostProcessor, InitializingB
     private void enhanceJdbc(DataSourceProperties dsp) throws SocketException, AuthException {
         String url = dsp.getUrl();
         if (!StringUtils.hasText(url)) {
-            log.warn("url not found in datasource");
+            log.warn("{}: url not found in datasource", getName());
             return;
         }
 
         String url2 = AnyUrl.tryUrl(url, conf, engine);
         if (url != url2) {
-            log.info("Change jdbc url: {} => {}", url, url2);
+            log.info("{}: Change jdbc url: {} => {}", getName(), url, url2);
             dsp.setUrl(url2);
         }
+    }
+
+    private String getName() {
+        return getClass().getSimpleName();
     }
 
     @Override

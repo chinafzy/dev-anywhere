@@ -11,14 +11,15 @@ import me.in1978.tools.anywhere.tr.AuthException;
 import me.in1978.tools.anywhere.tr.SocketException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Component
-@EnableConfigurationProperties(AnywhereConf.class)
-@ConditionalOnClass(Anywhere.class)
 @Slf4j
+@Configuration
+@EnableConfigurationProperties(AnywhereConf.class)
 public class AnywhereBeans {
     @Bean
     @ConditionalOnMissingBean
@@ -42,11 +43,13 @@ public class AnywhereBeans {
             for (BindModel export : sessionConf.retrieveExports()) {
                 log.info("Exporting to remote {}, {}", sessionModel.getHost(), export.descForward());
                 session.l2rBind(export);
+                log.info("Exporting result {}", export.descForward());
             }
 
             for (BindModel imp : sessionConf.retrieveImports()) {
                 log.info("Importing from remote {}, {}", sessionModel.getHost(), imp.descForward());
                 session.r2lBind(imp);
+                log.info("Importing result {}", imp.descForward());
             }
         }
 

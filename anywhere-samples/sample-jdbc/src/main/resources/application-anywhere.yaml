@@ -1,40 +1,48 @@
 tools:
   anywhere:
+    enable: true
+    engine-model:
+      check-interval: 100S
+      #      identify-file: ~/.ssh/id_rsa
+      identify-value: ${more.identify1}
     session:
-
       session-model:
         host: 43.143.168.105
         port: 22
         user: anywhere
-    engine-model:
+      l2r-binds:
+        - ori-port: 8080
+#          ori-host: "*"
+#          bind-port: 18080
+#          bind-addr: "*"
 
-      check-interval: 100S
-      #      identify-file: ~/.ssh/id_rsa
-      identify-value: |
-        -----BEGIN RSA PRIVATE KEY-----
-        MIIEpAIBAAKCAQEAw0wJkjGB1fF8HALG3KBzBE8sONhU4R6Dr9is9gBn0wMk+5Oo
-        kL0zlcb9ZUZ+7/JAEK1cveMw9fVou+IlATXIaI3eltK6jswcOMGL9QqommrewD7w
-        p/niBTvkW0ypEM+jJt+yjs+QdEnkkORosy1B18FiG9CnwWYzbGrIkcxJYRdUFU4Z
-        VSWOckT64clsckKTBzyU8tFeU3W41UbP0n37PsLIuc/Vch1li3gGUFaIyex7uq7y
-        zHSBxaKQPaU5f/wXHyBetr4dusr9L6ECE4OPzUWE0SXgB9catn1PgCvby29V1rOd
-        i9uIzX5iuuwVvEZrl+Wo9Dk1tE964JB3KLJU3QIDAQABAoIBAQCgzdkLoOvxBvdT
-        8Q1g2FQb9jzJSYcKHZ/8iIJRxB+45VvsMbaYBtGUv9YhL5yRYXxSvwwf5hOIUds8
-        6IXjqy8qt7XRpg2qSnHqYaMlzvLowppK3Qg2p0/tU1VBv6tthiomdgaGBG5C8hzb
-        GNcEwXz3c+meUX3vhoFNAdfIBNdesu/XitnWZ+6eNe6/hUbBJne66w3iDyZ0Fu0n
-        dX0GdIkuMoUHRf1s+2cWvfOz7YrFJoUZT1wUaKUB6D2Sj+SWdlmy6PHZi0BKhJKk
-        d4pZZbNHilEpgOrD+R0rTGwdKJtSaJIweCQJhUyBbe43DD/yQEmc5fK7eE68F1Q0
-        EWpGf9KZAoGBAOz7hKQX0fjroE5nUkB2uBSUKCseynStFVDlSDdlBUqC+rWCNaj6
-        RQxeh1pnzs9jp4yuKpe29KwCCsCGCOq0+yHgYnolA0Tyk6FLZ1aCOPO39QWNRqTZ
-        0w53TcbnVAap0sXqK+yvRPl2rb4Yob+xnLfa08CXIKWWujZCE3LCRdmnAoGBANL4
-        JexKf0Wusxw0O+q9b2kapXla5XIOJsm657x0VV4gSoDCS5lUpkxHy9FBGKIwK9FE
-        MPx6iQqSj9C6iRROaQhnukFaBQkWYCcMCWZp1Hgslz86+zEF8DssXPTIc4V+C7Qi
-        o7KPyN2yyBr+fA8O8OIGkTskH8XiEEVo0zwFJCXbAoGAUyolL0zos/lEpZ8ev16q
-        VRZ1TkSc+fsvytbb1AzQoYh7oS0T1bwWdTPLPk/FxQQM7ZLFgb6D+MUyrsOa53sh
-        0o6jIIhSsGSMqIMEvdgvUmBRTWR50SpcJex6T/4of7ojLK90QLh1dTJP4LFWOiaD
-        gAX8X87pdxMBQD9KAfDpgGsCgYEAlbkUuOh6AMsmRDrx1vuQSOhnTYPr2JEgiASE
-        mCN7vmxuU4kQvAXua658gMqRH/HN9xtNJLIV9hHjzP/Fb0rikduDvQOVFUjy/mM1
-        fKBY8Ny8jlxejwEm5+fpJLPqAHBe //2hbYVLycMq7rVy+ADjhZWhlnZhsj9oysnF
-        OBByAgcCgYBe86suE9yC68RVaUj/R5pmQIbpDpr7bXFSrMQ6r4uYgPKUUSbmezos
-        0qCjYA3d0Q+I3FewmKw7iCfl748DIVYKHqy8NZj8HGRzL2Lq047lrGb8Qwxx8zO2
-        hV9UqnP4LJc3UZ4iRIaghZ7hhgQjArzmVtwzpH9xH4ikRHq0fSQSRw==
-        -----END RSA PRIVATE KEY-----
+
+
+more.identify1: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEpAIBAAKCAQEAw0wJkjGB1fF8HALG3KBzBE8sONhU4R6Dr9is9gBn0wMk+5Oo
+  kL0zlcb9ZUZ+7/JAEK1cveMw9fVou+IlATXIaI3eltK6jswcOMGL9QqommrewD7w
+  p/niBTvkW0ypEM+jJt+yjs+QdEnkkORosy1B18FiG9CnwWYzbGrIkcxJYRdUFU4Z
+  VSWOckT64clsckKTBzyU8tFeU3W41UbP0n37PsLIuc/Vch1li3gGUFaIyex7uq7y
+  zHSBxaKQPaU5f/wXHyBetr4dusr9L6ECE4OPzUWE0SXgB9catn1PgCvby29V1rOd
+  i9uIzX5iuuwVvEZrl+Wo9Dk1tE964JB3KLJU3QIDAQABAoIBAQCgzdkLoOvxBvdT
+  8Q1g2FQb9jzJSYcKHZ/8iIJRxB+45VvsMbaYBtGUv9YhL5yRYXxSvwwf5hOIUds8
+  6IXjqy8qt7XRpg2qSnHqYaMlzvLowppK3Qg2p0/tU1VBv6tthiomdgaGBG5C8hzb
+  GNcEwXz3c+meUX3vhoFNAdfIBNdesu/XitnWZ+6eNe6/hUbBJne66w3iDyZ0Fu0n
+  dX0GdIkuMoUHRf1s+2cWvfOz7YrFJoUZT1wUaKUB6D2Sj+SWdlmy6PHZi0BKhJKk
+  d4pZZbNHilEpgOrD+R0rTGwdKJtSaJIweCQJhUyBbe43DD/yQEmc5fK7eE68F1Q0
+  EWpGf9KZAoGBAOz7hKQX0fjroE5nUkB2uBSUKCseynStFVDlSDdlBUqC+rWCNaj6
+  RQxeh1pnzs9jp4yuKpe29KwCCsCGCOq0+yHgYnolA0Tyk6FLZ1aCOPO39QWNRqTZ
+  0w53TcbnVAap0sXqK+yvRPl2rb4Yob+xnLfa08CXIKWWujZCE3LCRdmnAoGBANL4
+  JexKf0Wusxw0O+q9b2kapXla5XIOJsm657x0VV4gSoDCS5lUpkxHy9FBGKIwK9FE
+  MPx6iQqSj9C6iRROaQhnukFaBQkWYCcMCWZp1Hgslz86+zEF8DssXPTIc4V+C7Qi
+  o7KPyN2yyBr+fA8O8OIGkTskH8XiEEVo0zwFJCXbAoGAUyolL0zos/lEpZ8ev16q
+  VRZ1TkSc+fsvytbb1AzQoYh7oS0T1bwWdTPLPk/FxQQM7ZLFgb6D+MUyrsOa53sh
+  0o6jIIhSsGSMqIMEvdgvUmBRTWR50SpcJex6T/4of7ojLK90QLh1dTJP4LFWOiaD
+  gAX8X87pdxMBQD9KAfDpgGsCgYEAlbkUuOh6AMsmRDrx1vuQSOhnTYPr2JEgiASE
+  mCN7vmxuU4kQvAXua658gMqRH/HN9xtNJLIV9hHjzP/Fb0rikduDvQOVFUjy/mM1
+  fKBY8Ny8jlxejwEm5+fpJLPqAHBe //2hbYVLycMq7rVy+ADjhZWhlnZhsj9oysnF
+  OBByAgcCgYBe86suE9yC68RVaUj/R5pmQIbpDpr7bXFSrMQ6r4uYgPKUUSbmezos
+  0qCjYA3d0Q+I3FewmKw7iCfl748DIVYKHqy8NZj8HGRzL2Lq047lrGb8Qwxx8zO2
+  hV9UqnP4LJc3UZ4iRIaghZ7hhgQjArzmVtwzpH9xH4ikRHq0fSQSRw==
+  -----END RSA PRIVATE KEY-----

@@ -12,23 +12,22 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
-@Component
-@EnableConfigurationProperties({RedisProperties.class, AnywhereConf.class})
-@RequiredArgsConstructor
 @Slf4j
+@Configuration
+@RequiredArgsConstructor
+@EnableConfigurationProperties({RedisProperties.class, AnywhereConf.class})
 public class AnywhereRedisSetup implements InitializingBean, BeanPostProcessor, Ordered {
 
     final AnywhereConf anywhereConf;
     final AnywhereEngine engine;
-    @Resource
-    ApplicationContext ctx;
+    final ApplicationContext ctx;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -86,6 +85,6 @@ public class AnywhereRedisSetup implements InitializingBean, BeanPostProcessor, 
 
     @Override
     public int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }

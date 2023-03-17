@@ -40,11 +40,13 @@ public class EngineModel implements CloneBySerializable<EngineModel> {
         try {
             File file = new File(String.format("%s/id_%s",
                     System.getProperty("java.io.tmpdir"), Utils.digest(identifyValue)));
-            log.info("save identify to {}", file.getAbsolutePath());
-            try (
-                    FileOutputStream fos = new FileOutputStream(file);
-                    OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8)) {
-                osw.write(identifyValue);
+            if (!file.exists()) {
+                log.info("save identify to {}", file.getAbsolutePath());
+                try (
+                        FileOutputStream fos = new FileOutputStream(file);
+                        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8)) {
+                    osw.write(identifyValue);
+                }
             }
 
             return file.getAbsolutePath();

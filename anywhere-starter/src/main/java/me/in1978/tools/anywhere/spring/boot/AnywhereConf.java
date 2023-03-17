@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 @Accessors(chain = true)
 public class AnywhereConf {
     public static final String PREFIX = "tools.anywhere";
+    boolean enable = true;
     EngineModel engineModel;
     List<SessionConf> sessions;
     SessionConf session;
@@ -43,10 +44,6 @@ public class AnywhereConf {
         List<BindModel> l2rBinds;
         BindModel r2lBind;
         List<BindModel> r2lBinds;
-
-        public void setImport(BindModel imp) {
-            this.r2lBind = imp;
-        }
 
         public boolean match(String host) {
             if (!StringUtils.hasText(pattern)) {

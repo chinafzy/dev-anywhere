@@ -168,7 +168,7 @@ class AnywhereSessionJschImpl implements AnywhereSession {
      * @throws JSchException
      */
     private void r2lBind0(BindModel model) throws SocketException, AuthException {
-        model.fixOnLocalMode();
+        model.fixBeforeBinding();
 
         int p = 0;
         try {
@@ -183,7 +183,7 @@ class AnywhereSessionJschImpl implements AnywhereSession {
     }
 
     private void r2lUnbind0(String bindAddr, Integer bindPort) {
-        String bindAddr2 = BindModel.fixLocalBindAddr(bindAddr);
+        String bindAddr2 = BindModel.fixBindAddr(bindAddr);
 
         if (jschSession != null && jschSession.isConnected()) {
             try {
@@ -204,10 +204,12 @@ class AnywhereSessionJschImpl implements AnywhereSession {
      * @throws JSchException
      */
     private void l2rBind0(BindModel model) throws SocketException, AuthException {
-        model.fixOnRemoteMode();
+        model.fixBeforeBinding();
 
         try {
-            retrieveJschSession(true).setPortForwardingR(model.getBindAddr(), model.getBindPort(), model.getOriHost(), model.getOriPort());
+            int p = retrieveJschSession(true)
+                    .setPortForwardingR(String.format("%s:%s:%s:%s", model.getBindAddr(), model.getBindPort(), model.getOriHost(), model.getOriPort()));
+            model.setBindPort(p);
         } catch (JSchException e) {
             throw new ForwardException(e);
         }
@@ -216,7 +218,7 @@ class AnywhereSessionJschImpl implements AnywhereSession {
     }
 
     private void l2rUnbind0(String bindAddr, Integer bindPort) {
-        String bindAddr2 = BindModel.fixRemoteBindAddr(bindAddr);
+        String bindAddr2 = BindModel.fixBindAddr(bindAddr);
 
         if (jschSession != null || jschSession.isConnected()) {
             try {
