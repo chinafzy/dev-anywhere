@@ -14,7 +14,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
@@ -39,13 +38,7 @@ public class AnywhereRedisSetup implements InitializingBean, BeanPostProcessor, 
         }
     }
 
-    private void enhanceRedisProperties(RedisProperties rp) throws SocketException, AuthException {
-
-        for (AnywhereConf.SessionConf cnf : anywhereConf.retrieveSessions()) {
-            if (enhanceHost(cnf, rp)) {
-                return;
-            }
-        }
+    private boolean enhanceRedisProperties(RedisProperties rp) throws SocketException, AuthException {
 
         String url = rp.getUrl();
         if (StringUtils.hasText(url)) {
@@ -55,10 +48,18 @@ public class AnywhereRedisSetup implements InitializingBean, BeanPostProcessor, 
             if (url2 != url) {
                 log.info("Change redis url: {} => {}", url, url2);
                 rp.setUrl(url2);
-            }
 
+                return true;
+            }
         }
 
+        for (AnywhereConf.SessionConf cnf : anywhereConf.retrieveSessions()) {
+            if (enhanceHost(cnf, rp)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean enhanceHost(AnywhereConf.SessionConf conf, RedisProperties rp) throws SocketException, AuthException {
