@@ -28,4 +28,6 @@ public interface AnywhereSession {
 
     List<BindModel> r2lBindings();
 
+    String runRemote(String cmd) throws SocketException, AuthException;
+
 }

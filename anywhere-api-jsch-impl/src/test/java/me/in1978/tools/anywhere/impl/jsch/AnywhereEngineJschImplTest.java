@@ -1,5 +1,6 @@
 package me.in1978.tools.anywhere.impl.jsch;
 
+import me.in1978.tools.anywhere.model.BindModel;
 import me.in1978.tools.anywhere.model.EngineModel;
 import me.in1978.tools.anywhere.model.SessionModel;
 import me.in1978.tools.anywhere.tr.AuthException;
@@ -53,6 +54,19 @@ class AnywhereEngineJschImplTest {
         SessionModel sessionModel = new SessionModel().setHost(host).setUser(user).setPass(pass);
         AnywhereSessionJschImpl session = new AnywhereEngineJschImpl(model).retrieveSession(sessionModel);
         System.out.println(session.getJschSession().isConnected());
+    }
+
+    @Test
+    public void testRandomPorts() throws SocketException, AuthException {
+        EngineModel model = new EngineModel().setIdentifyValue(identifyValue);
+        SessionModel sessionModel = new SessionModel().setHost(host).setUser(user);
+        AnywhereSessionJschImpl session = new AnywhereEngineJschImpl(model).retrieveSession(sessionModel);
+
+        for (int i = 0; i < 30000; i++) {
+            BindModel bindModel = new BindModel().setOriPort(80);
+            session.l2rBind(bindModel);
+            System.out.println(bindModel.getBindPort());
+        }
     }
 
 

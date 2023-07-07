@@ -3,14 +3,18 @@ tools:
     enable: true
     engine-model:
       check-interval: 100S
-      #      identify-file: ~/.ssh/id_rsa
-      identify-value: ${more.identify1}
+      identify-file: ~/.ssh/id_rsa
+#      identify-value: ${more.identify1}
     session:
       session-model:
         host: 43.143.168.105
         port: 22
-        user: anywhere
+#        user: anywhere
+        user: root
       l2r-binds:
+        - ori-port: 3000
+          bind-addr: 10.0.24.2
+          bind-port: 8889
         - ori-port: 8080
 #          ori-host: "*"
 #          bind-port: 18080

@@ -16,6 +16,7 @@ import me.in1978.tools.anywhere.util.StringUtils;
 import me.in1978.tools.anywhere.util.Utils;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
@@ -29,6 +30,7 @@ class AnywhereSessionJschImpl implements AnywhereSession {
     private final SessionModel conf;
     transient final private Object sessionLock = new Object();
     private final List<BindModel> l2rBindings = new CopyOnWriteArrayList<>(), r2lBindings = new CopyOnWriteArrayList<>();
+    private final Random rnd = new Random();
     transient private Session jschSession;
     private String id;
 
@@ -87,6 +89,15 @@ class AnywhereSessionJschImpl implements AnywhereSession {
     @Override
     public List<BindModel> r2lBindings() {
         return Utils.cloneBySer(r2lBindings);
+    }
+
+    @Override
+    public String runRemote(String cmd) throws SocketException, AuthException {
+        try {
+            return new JschRemoteHelper(retrieveJschSession(true)).runJschCommand(cmd);
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void autoFix() {
@@ -178,7 +189,6 @@ class AnywhereSessionJschImpl implements AnywhereSession {
         }
 
         model.setBindPort(p);
-
         r2lBindings.add(model.clone2());
     }
 
@@ -206,21 +216,42 @@ class AnywhereSessionJschImpl implements AnywhereSession {
     private void l2rBind0(BindModel model) throws SocketException, AuthException {
         model.fixBeforeBinding();
 
-        try {
-            int p = retrieveJschSession(true)
-                    .setPortForwardingR(String.format("%s:%s:%s:%s", model.getBindAddr(), model.getBindPort(), model.getOriHost(), model.getOriPort()));
-            model.setBindPort(p);
-        } catch (JSchException e) {
-            throw new ForwardException(e);
+        if (model.getBindPort() != null && model.getBindPort() != 0) {
+            try {
+                retrieveJschSession(true)
+                        .setPortForwardingR(String.format("%s:%s:%s:%s", model.getBindAddr(), model.getBindPort(), model.getOriHost(), model.getOriPort()));
+                l2rBindings.add(model.clone2());
+                return;
+            } catch (JSchException e) {
+                throw new ForwardException(e);
+            }
         }
 
-        l2rBindings.add(model.clone2());
+        final int MAX_TRIES = 100;
+        for (int i = 0; i < MAX_TRIES; i++) {
+            int port = rnd.nextInt(62000) + 3000;
+            BindModel model2 = model.clone2();
+            model2.setBindPort(port);
+
+            try {
+                l2rBind0(model2);
+                model.setBindPort(model2.getBindPort());
+                return;
+            } catch (ForwardException e) {
+                if (!e.getCause().getMessage().contains("remote port forwarding failed for listen port")) {
+                    throw e;
+                }
+            }
+        }
+
+        throw new ForwardException(String.format("Fail to bind %s:%s after %s tries", model.getBindAddr(), model.getBindPort(), MAX_TRIES));
+
     }
 
     private void l2rUnbind0(String bindAddr, Integer bindPort) {
         String bindAddr2 = BindModel.fixBindAddr(bindAddr);
 
-        if (jschSession != null || jschSession.isConnected()) {
+        if (jschSession != null && jschSession.isConnected()) {
             try {
                 jschSession.delPortForwardingR(bindAddr2, bindPort);
             } catch (JSchException nothing) {
