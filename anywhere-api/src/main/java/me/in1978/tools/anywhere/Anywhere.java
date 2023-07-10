@@ -19,6 +19,6 @@ public class Anywhere {
             }
         }
 
-        throw new IllegalStateException("No driver found for:" + AnywhereFactory.class.getName());
+        throw new IllegalStateException("No driver found for: " + AnywhereFactory.class.getName());
     }
 }
