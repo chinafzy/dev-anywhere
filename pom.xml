@@ -13,10 +13,7 @@
         <module>anywhere-api</module>
         <module>anywhere-api-jsch-impl</module>
 <!--        <module>anywhere-api-jsch-web</module>-->
-        <module>anywhere-starter</module>
-        <module>anywhere-starter-redis</module>
-        <module>anywhere-starter-jdbc</module>
-        <module>anywhere-starter-all</module>
+        <module>anywhere-starters</module>
         <module>anywhere-samples</module>
     </modules>
 

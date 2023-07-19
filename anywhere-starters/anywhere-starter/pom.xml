@@ -6,11 +6,12 @@
     <parent>
         <groupId>io.github.chinafzy</groupId>
         <artifactId>anywhere-parent</artifactId>
-        <version>1.0.1</version>
-        <relativePath>../anywhere-parent/pom.xml</relativePath>
+        <version>1.1.0</version>
+        <relativePath>../../anywhere-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>anywhere-starter</artifactId>
+<!--    <packaging>pom</packaging>-->
 
     <dependencies>
         <dependency>

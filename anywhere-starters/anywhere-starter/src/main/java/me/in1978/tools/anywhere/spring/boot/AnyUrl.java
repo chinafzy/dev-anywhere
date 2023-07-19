@@ -11,6 +11,7 @@ import me.in1978.tools.anywhere.tr.SocketException;
 import me.in1978.tools.anywhere.util.CloneBySerializable;
 
 import java.net.URI;
+import java.util.Objects;
 
 @Data
 @Accessors(chain = true)
@@ -58,7 +59,7 @@ public class AnyUrl implements CloneBySerializable<AnyUrl> {
     public static String tryUrl(String url, AnywhereConf conf, AnywhereEngine engine) throws SocketException, AuthException {
         for (AnywhereConf.SessionConf sessionConf : conf.retrieveSessions()) {
             String url2 = tryUrl(url, sessionConf, engine);
-            if (url2 != url) {
+            if (!Objects.equals(url2, url)) {
                 return url2;
             }
         }
