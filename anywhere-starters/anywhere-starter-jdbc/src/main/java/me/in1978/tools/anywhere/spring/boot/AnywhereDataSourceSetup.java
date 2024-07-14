@@ -7,7 +7,6 @@ import me.in1978.tools.anywhere.tr.AuthException;
 import me.in1978.tools.anywhere.tr.SocketException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -47,7 +46,7 @@ public class AnywhereDataSourceSetup implements BeanPostProcessor, InitializingB
         }
 
         String url2 = AnyUrl.tryUrl(url, conf, engine);
-        if (url != url2) {
+        if (!url.equals(url2)) {
             log.info("{}: Change jdbc url: {} => {}", getName(), url, url2);
             dsp.setUrl(url2);
         }

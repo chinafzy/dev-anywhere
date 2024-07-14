@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -53,7 +54,7 @@ public class AnywhereDynamicDataSourceSetup implements BeanPostProcessor, Initia
                 }
 
                 String url2 = AnyUrl.tryUrl(url, conf, engine);
-                if (url2 != url) {
+                if (!Objects.equals(url2, url)) {
                     log.info("{}: Enhance url from \n {} to \n {}", getName(), url, url2);
                     d2.setUrl(url2);
                 }

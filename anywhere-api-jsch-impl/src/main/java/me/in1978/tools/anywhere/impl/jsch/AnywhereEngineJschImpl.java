@@ -13,6 +13,7 @@ import me.in1978.tools.anywhere.tr.AuthException;
 import me.in1978.tools.anywhere.tr.SocketException;
 import me.in1978.tools.anywhere.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,7 +21,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Slf4j
 class AnywhereEngineJschImpl implements AnywhereEngine {
@@ -55,7 +55,7 @@ class AnywhereEngineJschImpl implements AnywhereEngine {
 
     @Override
     public List<AnywhereSession> sessionList() {
-        return sessions.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(sessions.values());
     }
 
     @Override
@@ -110,7 +110,7 @@ class AnywhereEngineJschImpl implements AnywhereEngine {
     }
 
     /**
-     * Remove and Destroy me.in1978.tools.anywhere.AnywhereFactory session.
+     * Remove and Destroy session.
      *
      * @param id
      */

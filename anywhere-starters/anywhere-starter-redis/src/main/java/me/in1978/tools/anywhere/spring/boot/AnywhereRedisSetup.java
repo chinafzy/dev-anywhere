@@ -17,6 +17,7 @@ import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @Configuration
@@ -45,7 +46,7 @@ public class AnywhereRedisSetup implements InitializingBean, BeanPostProcessor, 
             log.info("Found redis url: {}", url);
 
             String url2 = AnyUrl.tryUrl(url, anywhereConf, engine);
-            if (url2 != url) {
+            if (!Objects.equals(url2, url)) {
                 log.info("Change redis url: {} => {}", url, url2);
                 rp.setUrl(url2);
 

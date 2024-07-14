@@ -53,6 +53,16 @@ Enhance datasource spring.datasource-org.springframework.boot.autoconfigure.jdbc
 Make proxy localhost:3306 => 127.0.0.1:49355
 Change jdbc url: jdbc:mysql://localhost:3306/whmc-80?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=Asia/Shanghai => jdbc:mysql://127.0.0.1:49355/whmc-80?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=Asia/Shanghai
 ```
+
+五行日志分别表示：
+
++ `dev-anywhere`启动成功，登录到远程机器`43.143.168.105`
++ 将本地的`8080`端口映射到远程机器的`18080`端口
++ 扫描datasource配置，从`spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties`中寻找连接信息
+  （本案例中，有个数据库连接指向 `localhost:3306`）
++ 创建端口映射，从服务器的`localhost:3306`映射到本地电脑的`127.0.0.1:49355`
++ 将`jdbc`的连接地址从`localhost:3306`修改为`127.0.0.1:49355`
+
 ## 具体做法
 具体做法参考`anywhere-samples`
 
