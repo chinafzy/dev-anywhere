@@ -1,7 +1,7 @@
 package me.in1978.tools.anywhere.spring.boot;
 
 
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
+import com.baomidou.dynamic.datasource.creator.DataSourceProperty;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 @ConditionalOnBean(AnywhereBeans.class)
 @EnableConfigurationProperties({AnywhereConf.class})
 @ConditionalOnClass(DynamicDataSourceProperties.class)
-public class AnywhereDynamicDataSourceSetup implements BeanPostProcessor, InitializingBean, Ordered {
+public class AnywhereDataSourceDynamic4Setup implements BeanPostProcessor, InitializingBean, Ordered {
 
     final AnywhereConf conf;
     final AnywhereEngine engine;

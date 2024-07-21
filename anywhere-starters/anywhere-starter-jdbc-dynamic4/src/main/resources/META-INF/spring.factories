@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+me.in1978.tools.anywhere.spring.boot.AnywhereDataSourceDynamic4Auto

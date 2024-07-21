@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ConditionalOnBean(AnywhereAuto.class)
-@Import({AnywhereDataSourceSetup.class})
-public class AnywhereDataSourceAuto {
+@Import({AnywhereDataSourceDynamic3Setup.class})
+public class AnywhereDataSourceDynamic3Auto {
 }

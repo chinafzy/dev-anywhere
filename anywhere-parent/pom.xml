@@ -6,7 +6,7 @@
 
     <groupId>io.github.chinafzy</groupId>
     <artifactId>anywhere-parent</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
     <description>Parent POM base on SpringBoot 2.0.0</description>
     <url>https://github.com/chinafzy/dev-anywhere</url>

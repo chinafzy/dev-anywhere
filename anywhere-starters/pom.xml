@@ -6,15 +6,17 @@
 
     <groupId>io.github.chinafzy</groupId>
     <artifactId>anywhere-starters</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>anywhere-starter</module>
         <module>anywhere-starter-parent</module>
         <module>anywhere-starter-all</module>
-        <module>anywhere-starter-jdbc</module>
         <module>anywhere-starter-redis</module>
+        <module>anywhere-starter-jdbc</module>
+        <module>anywhere-starter-jdbc-dynamic3</module>
+        <module>anywhere-starter-jdbc-dynamic4</module>
     </modules>
 
 </project>
